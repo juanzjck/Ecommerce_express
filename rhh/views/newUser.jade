@@ -2,9 +2,6 @@ extends layout
 
 block content
   h1= 'Crear nuevo usuario'
-  if(errors)
-    each val, index in errors
-      h3#red=val
   form(action="new_user",method='post')
     div(data-role='fieldcontain')
       fieldset(data-role='controlgroup')

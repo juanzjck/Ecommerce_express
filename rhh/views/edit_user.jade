@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  h1= 'Editar usuario'
+  a(href='http://localhost:3000/all_users')='regresar'
+  form(action=urlDelete,method='post')
+    div(data-role='fieldcontain')   
+      input(type='submit',value='Eliminar',data-transition='fade', data-theme='c')
+  if(success)
+    h4#green='Guardado con exito'
+  if(errors)
+    each val, index in errors
+      h3#red=val
+  form(action=url,method='post')
+    div(data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='firstName') Primer Nombre
+           input(id='firstName',type='text',value=firstName,placeholder='',name='firstName')
+           div(data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='secondName') Segundo Nombre
+           input(id='secondName',type='text',value=secondName,placeholder='',name='secondName')
+      fieldset(data-role='controlgroup')
+        label(for='lastName') Apellido
+           input(id='lastName',type='text',value=lastName,placeholder='',name='lastName')
+     fieldset(data-role='controlgroup')
+        label(for='dni') CEDULA
+           input(id='dni',type='text',value=dni,placeholder='',name='dni')
+     fieldset(data-role='controlgroup')
+        label(for='telefono') Telefono
+           input(id='telefono',type='text',value=telefono,placeholder='',name='telefono')
+    div(data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='email') Correo
+           input(id='email',type='text',value=email,placeholder='@',name='email')
+
+    div(data-role='fieldcontain')   
+      input(type='submit',value='Guardar cambios',data-transition='fade', data-theme='c')
+
+

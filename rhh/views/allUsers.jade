@@ -1,0 +1,14 @@
+extends layout
+
+
+block content
+  a(href='http://localhost:3000/new_user')='crear nuevo usuario'
+  if(usuarios)
+     ul
+      each val, index in usuarios
+        li
+         a(href=`${domain}${val._id}`)=val.email
+         
+
+       
+      

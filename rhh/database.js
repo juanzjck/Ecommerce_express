@@ -1,7 +1,7 @@
 const {adminuserName, adminuserEmail,adminuserPassword,adminuserID} = require('./config/page.js');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/btn_db_test',{
+mongoose.connect('mongodb://localhost/rh',{
     useCreateIndex: true,
     useNewUrlParser: true,
     useFindAndModify: false,

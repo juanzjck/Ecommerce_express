@@ -4,13 +4,14 @@ var router = express.Router();
 var User= require('../modules/User');
 const passport = require('passport');
 const {isAuthenticated} = require('../helpers/auth');
-/* GET users listing. */
-router.get('/users', function(req, res, next) {
-  res.send('respond with a resource');
-});
-router.get('/new_user',isAuthenticated, function(req, res, next) {
 
-  res.render('newUser', { title: 'Nuevo usario' });
+router.get('/new_user',isAuthenticated, function(req, res, next) {
+  if(req.user.isAdmin()){
+    res.render('newUser', { title: 'Nuevo usario' });
+  }else{
+    req.redirect('/')
+  }
+  
 });
 
 router.post('/new_user',isAuthenticated, async function(req, res, next) {
@@ -34,33 +35,51 @@ router.post('/new_user',isAuthenticated, async function(req, res, next) {
   if(!password==password2 ){
     errors.push('La contraseña no coinciden')
   }
-  console.log({firstName, secondName,lastName, dni,telefono,email, password,password2})
+ 
 console.log(errors)
 if(errors.length>0){
   res.render('newUser', { title: 'Nuevo usario', errors });
 }else{
-  const pass=await User.encryptPassword(password);
-  const newUser = new User({firstName, secondName,lastName, dni,telefono,email, password:pass, cedula:dni});
-  await newUser.save()
-  res.redirect('/all_users')
+  const emailUser = await User.findOne({email: email})
+  if(emailUser){
+    errors.push('Ya existe un usario con el correo enviado')
+    res.render('newUser', { title: 'Nuevo usario', errors });
+      }else{
+        const newUser = new User({firstName, secondName,lastName, dni,telefono,email, password, cedula:dni});
+        newUser.password = await newUser.encryptPassword(password);
+        await newUser.save()
+        res.redirect('/all_users')
+      }
+
 }
 });
 
 
 router.get('/all_users',isAuthenticated,async function(req, res, next) {
-   const users= await User.find({})
+  
+  if(req.user.isAdmin()){
+    const users= await User.find({})
    var auxUsers=[]
    users.map((usr)=>{
     auxUsers.push(usr)
    })
+
   res.render('allUsers', { title: 'Nuevo usario', usuarios:auxUsers, domain:'http://localhost:3000/edit_user/' });
+  }else{
+    res.redirect('/')
+  }
 });
 router.get('/edit_user/:_id',isAuthenticated,async function(req, res, next) {
-  const userId=req.params._id;
-  const usr=await User.findById(userId)
-  const {firstName, secondName,lastName, cedula,telefono,email, password,password2}=usr;
- console.log({firstName, secondName,lastName, cedula,telefono,email, password,password2})
-  res.render('edit_user', { title: 'Nuevo usario',firstName, secondName,lastName, dni:cedula,telefono,email, url:`http://localhost:3000/edit_user/${userId}`,urlDelete:`http://localhost:3000/user_delete/${userId}` });
+  if(req.user.isAdmin()){
+    const userId=req.params._id;
+    const usr=await User.findById(userId)
+    const {firstName, secondName,lastName, cedula,telefono,email, password,password2}=usr;
+   console.log({firstName, secondName,lastName, cedula,telefono,email, password,password2})
+    res.render('edit_user', { title: 'Nuevo usario',firstName, secondName,lastName, dni:cedula,telefono,email, url:`http://localhost:3000/edit_user/${userId}`,urlDelete:`http://localhost:3000/user_delete/${userId}` });
+  
+  }else{
+    res.redirect('/')
+  }
 });
 
 router.post('/edit_user/:_id',isAuthenticated,async function(req, res, next) {
@@ -75,13 +94,18 @@ router.post('/user_delete/:_id',isAuthenticated,async function(req, res, next) {
   await User.findByIdAndDelete(userId)
   res.redirect('/all_users')
 });
-router.get('/login', async function(req,res,next){
+router.get('/login', async function(req,res,next){ 
   res.render('login',{title:'login', domain:'http://localhost:3000/edit_user/'});
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/all_users',
+  successRedirect: '/dashboard',
   failureRedirect: '/login',
   failureFlash : true
 }));
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/login');
+
+});
 module.exports = router;

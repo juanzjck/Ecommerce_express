@@ -8,13 +8,13 @@ passport.use(new LocalStrategy({
 },async(email,password,done) => {
     const user = await User.findOne({email:email});
     if (!user) {
-        return done(null,false,{message: 'Usuario no existe'});
+        return done(null,false,{errors: ['Usuario no existe']});
     }else{
         const match = await user.matchPassword(password);
         if (match) {
             return done(null, user);
         }else{
-            return done(null, false, {message: 'Contraseña Incorrecta'})
+            return done(null, false, {errors: ['Contraseña Incorrecta']})
         }
     }
 }));

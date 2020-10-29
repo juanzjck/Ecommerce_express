@@ -3,6 +3,9 @@ extends layout
 block content
  .container
    h1 Login
+   if(errors)
+    each val, index in errors
+      h3#red=val
    p.lead
      | Sign in with your account. Don’t have one?
      a(href='/register')  Register Now.

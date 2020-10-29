@@ -3,3 +3,8 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  if(user)
+    h3 hola #{user}
+    a(href='http://localhost:3000/logout')='Logout'
+  else
+    a(href='http://localhost:3000/login')='Login'

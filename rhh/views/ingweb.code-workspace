@@ -8,6 +8,12 @@
 		},
 		{
 			"path": "..\\..\\..\\Btn_Pagos\\bt"
+		},
+		{
+			"path": "..\\..\\..\\..\\EjemploCortes_HOB_V0"
+		},
+		{
+			"path": "..\\..\\..\\PixelPerfect"
 		}
 	],
 	"settings": {}

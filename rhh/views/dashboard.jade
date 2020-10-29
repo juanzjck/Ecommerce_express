@@ -4,13 +4,8 @@ extends layout
 block content
   a(href='http://localhost:3000/new_user')='crear nuevo usuario'
   br
+  a(href='http://localhost:3000/all_users')='Ver lista de usario'
+  br
   a(href='http://localhost:3000/logout')='cerrar sesion'
-  if(usuarios)
-     ul
-      each val, index in usuarios
-        li
-         a(href=`${domain}${val._id}`)=val.email
-         
-
        
       

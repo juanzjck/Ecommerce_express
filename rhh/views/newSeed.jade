@@ -1,0 +1,32 @@
+extends layoutAdmin
+
+block content
+    h1= 'Agregar semilla'
+    a(href='http://localhost:3000/all_users')='regresar'
+    form(action="new_seed",method='post', class="form-horizontal")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Name
+        div(class="col-9 col-sm-12")
+            input(class="form-input" name="name" type="text" id="input-example-1" placeholder="Name")
+        div(class="form-group")
+            label(class="form-label"  for="input-example-1") price
+        div(class="col-9 col-sm-12")
+            input(class="form-input" name="price" type="text" id="input-example-1" placeholder="price")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Quantity
+        div(class="col-9 col-sm-12")
+            input(class="form-input" name="quantity" type="text" id="input-example-1" placeholder="Quantity")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Category
+        div(class="col-9 col-sm-12")
+            select(class="form-select" multiple="" name="category")
+                        option='Slack'
+                        option='Skype'
+                        option='Hipchat'
+        div(class="col-9 col-sm-12",style="padding:10px;")
+            button(class="btn btn-success", type='submit' )  Guardar
+
+
+
+
+      

@@ -1,15 +1,21 @@
-extends layout
+extends layoutAdmin
 
 
 block content
-  a(href='http://localhost:3000/new_user')='crear nuevo usuario'
-  br
-  a(href='http://localhost:3000/logout')='cerrar sesion'
+  a(href='http://localhost:3000/new_user')
+   button(class="btn btn-success")='crear nuevo usuario'
   if(usuarios)
-     ul
+     table(class="table")
+      thead
+        tr
+          th Nombre
+          th Correo
       each val, index in usuarios
-        li
-         a(href=`${domain}${val._id}`)=val.email
+        tr
+          td
+           a(href=`${domain}${val._id}`)=val.firstName+" "+val.lastName
+          td
+           a(href=`${domain}${val._id}`)=val.email
          
 
        

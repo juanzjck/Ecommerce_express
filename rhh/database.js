@@ -8,7 +8,7 @@ mongoose.connect('mongodb://localhost/rh',{
     useUnifiedTopology: true,
 }).then(db => console.log('DB conectada')).catch(err => console.error(err)).then(
   async dv=>{
-    const User= require('./modules/User');
+    const User= require('./models/User');
     const user= await User.findOne({email:adminuserEmail});
     if(user===null){
           let newUser=new User({name:adminuserName, email:adminuserEmail,password:adminuserPassword, cedula:adminuserID});

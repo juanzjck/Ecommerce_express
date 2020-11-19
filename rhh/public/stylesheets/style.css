@@ -1,8 +1,57 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.container {
+  padding: 0px !important;
+}
+.dropdown {
+  margin: 0px 22px 0px 0px;
+}
+figure.avatar.avatar-sm.dropdown-toggle {
+  border-radius: 20px !IMPORTANT;
+}
+ul.menu#menu_profile {
+  margin: 0px 0px 0px -155px;
+}
+header.navbar {
+  -webkit-box-shadow: -8px 15px 44px 7px rgba(0,0,0,0.19);
+  -moz-box-shadow: -8px 15px 44px 7px rgba(0,0,0,0.19);
+  box-shadow: -8px 15px 44px 7px rgba(0,0,0,0.19);
+  padding: 5px;
+}
+.hero.bg-gray {
+  padding: 0px !important;
+}
+.hero-body {
+  height: 41pc !important;
+  overflow: hidden;
+}
+header.navbar {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  background: #ffff;
 }
 
-a {
-  color: #00B7FF;
+.index_slide{
+  background-image: url(../images/apple-1873078_1920.jpg);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
+.productList_container.columns {
+  padding: 20px;
+}
+.text-center {
+  padding: 10px;
+}
+.form-group.login_container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.space {
+  padding: 20px;
+}
+

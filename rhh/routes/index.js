@@ -8,14 +8,14 @@ router.get('/', function(req, res, next) {
   if(req.user){
     res.render('index', { title: 'Express', user:req.user['email']});
   }else{
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Express', });
   }
  
 });
 
 router.get('/dashboard',isAuthenticated, function(req, res, next) {
   if(req.user.isAdmin()){
-    res.render('dashboard', { title: 'Express' });
+    res.render('dashboard', { title: 'Express',user:req.user.email });
   }else{
     res.render('index', { title: 'Express', user:req.user.email});
   }

@@ -1,0 +1,17 @@
+extends layoutAdmin
+
+block content
+    h1= 'Agregar semilla'
+    a(href='http://localhost:3000/all_categorySeed')='regresar'
+    form(action="new_categorySeed",method='post', class="form-horizontal")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Category
+        div(class="col-9 col-sm-12")
+            input(class="form-input" name="category" type="text" id="input-example-1" placeholder="Name")
+        div(class="col-9 col-sm-12",style="padding:10px;")
+            button(class="btn btn-success", type='submit' )  Guardar
+
+
+
+
+      

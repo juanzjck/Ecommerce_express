@@ -1,0 +1,20 @@
+extends layoutAdmin
+
+block content
+    h1= 'Editar semilla'
+    a(href='http://localhost:3000/all_categorySeed')='regresar'
+    form(action=urlDelete,method='post')
+        div(data-role='fieldcontain')   
+           input(type='submit',value='Eliminar',data-transition='fade', data-theme='c')
+    form(action=url,method='post', class="form-horizontal")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Categoria
+        div(class="col-9 col-sm-12")
+            input(class="form-input" value=category name="category" type="text" id="input-example-1" placeholder="Name")
+        div(class="col-9 col-sm-12",style="padding:10px;")
+            button(class="btn btn-success", type='submit' )  Guardar
+
+
+
+
+      

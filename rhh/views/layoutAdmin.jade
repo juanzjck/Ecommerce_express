@@ -28,4 +28,30 @@ html
         else
           a(class="btn btn-link",href='http://localhost:3000/login')='Login'
           a(class="btn btn-link",href='http://localhost:3000/login')='Registrate'
-    block content
+    
+    div(class="space")
+    div(class="container grid-xl")
+      div(class="productList_container columns")
+        div(class="column col-3")
+            ul(class="menu")
+                li(class="menu-item")
+                    div(class="tile tile-centered")
+                    div(class="tile-icon")
+                        img(class="avatar" src="https://picsum.photos/200/300/?blur" alt="Avatar")
+                    div(class="tile-content")=user
+                li(class="divider")
+                li(class="menu-item")
+                    a(href='http://localhost:3000/all_users')='Usuarios'
+                li(class="menu-item")
+                    a(href='http://localhost:3000/all_users')='Publicciones'
+                li(class="menu-item")
+                    a(href='http://localhost:3000/all_categorySeed')='Categoria de semillas'
+                li(class="menu-item")
+                    a(href='http://localhost:3000/all_seed')='Semillas'
+                li(class="menu-item")
+                    a(href='http://localhost:3000/all_users')='Ordenes'
+                li(class="menu-item")
+                    a(href='http://localhost:3000/logout')='cerrar sesion'
+        div(class="column col-9")  
+         block content
+

@@ -1,7 +1,7 @@
 extends layout
 
 block content
- .container
+ div(class="form-group login_container")
    h1 Login
    if(errors)
     each val, index in errors
@@ -11,10 +11,10 @@ block content
      a(href='/register')  Register Now.
      form(role='form', action='/login', method='post')
        .form-group
-         label(for='username') Username
+         label(for='username',class="form-label") Username
          input.form-control(type='text', id='email', name='email', placeholder='enter a email')
        .form-group
-         label(for='password') Password
+         label(for='password', class="form-label") Password
          input.form-control(type='password', id='password', name='password', placeholder='enter a password')
        button.btn.btn-primary(type='submit') Submit
        &nbsp;

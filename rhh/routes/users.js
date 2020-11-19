@@ -1,13 +1,12 @@
 var express = require('express');
-const { findByIdAndUpdate } = require('../modules/User');
 var router = express.Router();
-var User= require('../modules/User');
+var User= require('../models/User');
 const passport = require('passport');
 const {isAuthenticated} = require('../helpers/auth');
 
 router.get('/new_user',isAuthenticated, function(req, res, next) {
   if(req.user.isAdmin()){
-    res.render('newUser', { title: 'Nuevo usario' });
+    res.render('newUser', { title: 'Nuevo usario' ,user:req.user.email});
   }else{
     req.redirect('/')
   }
@@ -15,6 +14,7 @@ router.get('/new_user',isAuthenticated, function(req, res, next) {
 });
 
 router.post('/new_user',isAuthenticated, async function(req, res, next) {
+ if(req.user.isAdmin()){
   const{firstName, secondName,lastName, dni,telefono,email, password,password2} = req.body
   const errors = [];
   if(firstName==='' || secondName==='' || lastName===''){
@@ -43,7 +43,7 @@ if(errors.length>0){
   const emailUser = await User.findOne({email: email})
   if(emailUser){
     errors.push('Ya existe un usario con el correo enviado')
-    res.render('newUser', { title: 'Nuevo usario', errors });
+    res.render('newUser', { title: 'Nuevo usario', errors,user:req.user.email });
       }else{
         const newUser = new User({firstName, secondName,lastName, dni,telefono,email, password, cedula:dni});
         newUser.password = await newUser.encryptPassword(password);
@@ -52,6 +52,8 @@ if(errors.length>0){
       }
 
 }
+ }
+  
 });
 
 
@@ -64,9 +66,9 @@ router.get('/all_users',isAuthenticated,async function(req, res, next) {
     auxUsers.push(usr)
    })
 
-  res.render('allUsers', { title: 'Nuevo usario', usuarios:auxUsers, domain:'http://localhost:3000/edit_user/' });
+  res.render('allUsers', { title: 'Nuevo usario', usuarios:auxUsers, domain:'http://localhost:3000/edit_user/',user:req.user.email });
   }else{
-    res.redirect('/')
+    res.redirect('/login')
   }
 });
 router.get('/edit_user/:_id',isAuthenticated,async function(req, res, next) {
@@ -75,10 +77,10 @@ router.get('/edit_user/:_id',isAuthenticated,async function(req, res, next) {
     const usr=await User.findById(userId)
     const {firstName, secondName,lastName, cedula,telefono,email, password,password2}=usr;
    console.log({firstName, secondName,lastName, cedula,telefono,email, password,password2})
-    res.render('edit_user', { title: 'Nuevo usario',firstName, secondName,lastName, dni:cedula,telefono,email, url:`http://localhost:3000/edit_user/${userId}`,urlDelete:`http://localhost:3000/user_delete/${userId}` });
+    res.render('edit_user', { title: 'Nuevo usario',firstName, secondName,lastName, dni:cedula,telefono,email, url:`http://localhost:3000/edit_user/${userId}`,urlDelete:`http://localhost:3000/user_delete/${userId}`,user:req.user.email });
   
   }else{
-    res.redirect('/')
+    res.redirect('/login')
   }
 });
 
@@ -86,7 +88,7 @@ router.post('/edit_user/:_id',isAuthenticated,async function(req, res, next) {
   const userId=req.params._id;
   const {firstName, secondName,lastName, dni,telefono,email}=req.body;
   await User.findByIdAndUpdate(userId,{firstName, secondName,lastName, dni,telefono,email});
-  res.render('edit_user', { title: 'Nuevo usario',firstName, secondName,lastName, dni,telefono,email, success:true });
+  res.render('edit_user', { title: 'Nuevo usario',firstName, secondName,lastName, dni,telefono,email, success:true,user:req.user.email });
 });
 
 router.post('/user_delete/:_id',isAuthenticated,async function(req, res, next) {

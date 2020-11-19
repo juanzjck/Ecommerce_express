@@ -1,0 +1,25 @@
+extends layoutAdmin
+
+
+block content
+  a(href='http://localhost:3000/new_seed')
+   button(class="btn btn-success")='Agreagr semilla'
+  if(seeds)
+     table(class="table")
+      thead
+        tr
+          th Nombre
+          th Cantidad
+          th Categoria
+          th Precio
+      each val, index in seeds
+        tr
+          td
+           a(href=`${domain}${val._id}`)=val.name
+          td
+           a(href=`${domain}${val._id}`)=val.quantity
+          td
+           a(href=`${domain}${val._id}`)=val.category
+          td
+           a(href=`${domain}${val._id}`)=val.price
+ 

@@ -1,0 +1,16 @@
+extends layoutAdmin
+
+
+block content
+  a(href='http://localhost:3000/new_categorySeed')
+   button(class="btn btn-success")='Agreagr categoria'
+  if(categorySeeds)
+     table(class="table")
+      thead
+        tr
+          th Category
+      each val, index in categorySeeds
+        tr
+          td
+           a(href=`${domain}${val._id}`)=val.category
+        

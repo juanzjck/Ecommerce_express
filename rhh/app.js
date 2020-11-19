@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('passport');
-var indexRouter = require('./routes/index');
+var seedRouter = require('./routes/seed');
 var usersRouter = require('./routes/users');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -39,6 +39,8 @@ app.use(flash());
 
 app.use(require('./routes/index'));
 app.use(require('./routes/users'));
+app.use(seedRouter);
+app.use(require('./routes/categorySeed'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

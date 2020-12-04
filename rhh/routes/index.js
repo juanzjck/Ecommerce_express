@@ -73,6 +73,8 @@ router.get('/dashboard',isAuthenticated,async function(req, res, next) {
 
 router.post('/dashboard',isAuthenticated,async function(req, res, next) {
   if(req.user.isAdmin()){
+    try {
+      
     const {dateStart,dateEnd,selectedCategory,location}=req.body
     console.log(location)
     var seed=undefined;
@@ -172,9 +174,12 @@ router.post('/dashboard',isAuthenticated,async function(req, res, next) {
     }).then(async()=>{
       seeds.sort((a,b)=>(a.total>b.total)?-1:(a.total===b.total)?-1:1)
       const mostSellerSeed=seeds[0];
-      const locationSelected=await Location.findById({location})
-      res.render('dashboard', {locationSelected,selectedCategory,locations,dateStart,dateEnd,selectedCategory,mostSellerSeed,categories,location,seeds, title: 'Express',user:req.user.email });
+    //  const locationSelected=await Location.findById({location})
+      res.render('dashboard', {selectedCategory,locations,dateStart,dateEnd,selectedCategory,mostSellerSeed,categories,location,seeds, title: 'Express',user:req.user.email });
     })
+    } catch (error) {
+        console.log(error)
+    }
   }else{
     res.render('index', { title: 'Express', user:req.user.email});
   }

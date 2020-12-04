@@ -10,6 +10,7 @@ const PublicationSchema = new Schema({
     user:{type:Schema.Types.ObjectId,ref:'User'},
     category:[{type:Schema.Types.ObjectId,ref:'Category'}],
     seeds:[{type:Schema.Types.ObjectId,ref:'Seed'}],
+    location:{type:Schema.Types.ObjectId,ref:'location'}
 })
 
 

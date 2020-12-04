@@ -15,7 +15,7 @@ block content
                         label(class="form-label" for="input-example-1") Fecha hasta
                     div(class="col-9 col-sm-12")
                         input(class="form-input" value=dateEnd name="dateEnd" type="date" id="input-example-1" placeholder="Name")
-                div(class="column col-12")
+                div(class="column col-6")
                     div(class="form-group")
                         label(class="form-label" for="input-example-1") Category
                     div(class="col-9 col-sm-12")
@@ -23,9 +23,25 @@ block content
                             option(value='') Ninguna
                             each cat, index in categories  
                                 option(value=cat._id)=cat.category  
-            div(class="col-9 col-sm-12",style="padding:10px;")
-                button(class="btn btn-success", type='submit' )  Buscar
+                div(class="column col-6")
+                    div(class="form-group")
+                            label(class="form-label" for="input-example-1") Ubicacion
+                        div(class="col-9 col-sm-12")
+                            select(name="location")
+                                option(value='') Ninguna
+                                each loc, index in locations  
+                                    option(value=loc._id)=loc.pais+"-"+loc.ciudad+"-"+loc.provincia
+                
+                div(class="col-9 col-sm-12",style="padding:10px;")
+                      button(class="btn btn-success", type='submit' )  Buscar
     div(class="results")
+            if(selectedCategory)
+                h3 Categoria selecionada
+                strong=selectedCategory
+            if(locationSelected)    
+                h3 Ubicacion
+                strong=locationSelected
+                
             div(class="result seed_most_buyed")
                 H3 Semilla Más vendida
                 div(class="result_container")

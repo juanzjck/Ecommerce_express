@@ -5,7 +5,8 @@ const { findByIdAndUpdate } = require('../models/Publication');
 const Publication= require('../models/Publication');
 var Category= require('../models/Category');
 const Seed = require('../models/Seed');
-
+const Location=require('../models/Location');
+const Points = require('../models/Points');
 router.get('/all_publication',isAuthenticated, async function(req,res,next){ 
     if(req.user.isAdmin()){
         const publications=await  Publication.find({});
@@ -23,10 +24,11 @@ router.get('/all_publication',isAuthenticated, async function(req,res,next){
 router.get('/new_publication',isAuthenticated, async function(req,res,next){ 
     if(req.user.isAdmin()){
         const categories= await Category.find({});
+        const locations=await Location.find({});
         const auxCategories=categories;
         const seeds= await Seed.find({});
         const auxSeeds=seeds;
-       res.render('newPublication',{title:'Agregar publicacion',seeds:auxSeeds,categories:auxCategories,user:req.user.email});
+       res.render('newPublication',{title:'Agregar publicacion',locations,seeds:auxSeeds,categories:auxCategories,user:req.user.email});
     }else{
         res.redirect('/')
     }
@@ -34,7 +36,7 @@ router.get('/new_publication',isAuthenticated, async function(req,res,next){
 
 router.post('/new_publication',isAuthenticated, async function(req,res,next){ 
     if(req.user.isAdmin()){
-        const {priceSpace,space,description,titulo,category,seed} = req.body
+        const {priceSpace,space,description,titulo,category,seed,location} = req.body
         const errors = [];
         if(priceSpace===""|| space==="" ||description==="" ||titulo==="" ||category===""){
             errors.push('Los campos no pueden estar vacios')
@@ -43,7 +45,7 @@ router.post('/new_publication',isAuthenticated, async function(req,res,next){
             res.render('newPublication', { title: 'Agregar semilla', errors });
         }
         try {
-            const newpublication = new Publication({priceSpace,space,description,titulo,category,seeds:seed})
+            const newpublication = new Publication({priceSpace,space,location,description,titulo,category,seeds:seed})
             await  newpublication.save()
         } catch (error) {
             console.log(error)
@@ -57,13 +59,15 @@ router.post('/new_publication',isAuthenticated, async function(req,res,next){
 router.get('/edit_publication/:_id',isAuthenticated, async function(req,res,next){ 
     if(req.user.isAdmin()){
         const publication= await Publication.findById(req.params._id)
-        const {priceSpace, space,description,titulo,category,seeds}=publication;
+        const {priceSpace, space,description,titulo,category,seeds,location}=publication;
         var categories=[];
         var auxSeeds=[];
         const allCategories= await Category.find({});
         const auxAllCategories=allCategories;
         const allSeed= await Seed.find({});
         const auxAllSeeds=allSeed;
+        const locations=await Location.find({});
+        const auxlocation=await Location.findById(location)
         new Promise((succes,reject)=>{
              category.map(async(cat)=>{
           
@@ -95,7 +99,9 @@ router.get('/edit_publication/:_id',isAuthenticated, async function(req,res,next
                 urlAddCategory:`http://localhost:3000/addCategory_publication/${req.params._id}`,
                 delete_category:`http://localhost:3000/deleteCategor_publication/${req.params._id}/`,
                 allSeeds:auxAllSeeds,
-                seeds:auxSeeds
+                seeds:auxSeeds,
+                locations,
+                location:auxlocation
             });
         })
 
@@ -107,8 +113,8 @@ router.get('/edit_publication/:_id',isAuthenticated, async function(req,res,next
 
 router.post('/edit_publication/:_id',isAuthenticated, async function(req,res,next){ 
     if(req.user.isAdmin()){
-        const {priceSpace, space,description,titulo,}=req.body;
-        await Publication.findByIdAndUpdate(req.params._id,{priceSpace, space,description,titulo,})
+        const {priceSpace, space,description,titulo,location}=req.body;
+        await Publication.findByIdAndUpdate(req.params._id,{priceSpace,location, space,description,titulo,})
         res.redirect('/all_publication')
     }else{
         res.redirect('/')
@@ -203,6 +209,16 @@ router.get('/deleteSeed_publication/:_id/:_id_seed',isAuthenticated, async funct
        publication.seeds= newSeeds;
        publication.save()
        res.redirect(`/edit_publication/${req.params._id}`)
+    }else{
+        res.redirect('/')
+    }
+});
+
+router.get('/score/:_id',isAuthenticated, async function(req,res,next){ 
+    if(req.user.isAdmin()){
+        const newpoint=await Points({publication:req._id,point:1});
+        newpoint.save();
+        res.redirect('/')
     }else{
         res.redirect('/')
     }

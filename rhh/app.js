@@ -44,6 +44,7 @@ app.use(require('./routes/categorySeed'));
 app.use(require('./routes/category'));
 app.use(require('./routes/publication'));
 app.use(require('./routes/checkOut'));
+app.use(require('./routes/location'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

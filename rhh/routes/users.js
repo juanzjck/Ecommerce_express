@@ -10,7 +10,6 @@ router.get('/new_user',isAuthenticated, function(req, res, next) {
   }else{
     req.redirect('/')
   }
-  
 });
 
 router.post('/new_user',isAuthenticated, async function(req, res, next) {

@@ -1,9 +1,62 @@
 extends layoutAdmin
 
-
 block content
+    h1= 'Reporte'
+    div(class="filters")
+        form(action='http://localhost:3000/dashboard',method='post', class="form-horizontal")
+            div(class="columns")
+                div(class="column col-6")
+                    div(class="form-group")
+                        label(class="form-label" for="input-example-1") Fecha desde
+                    div(class="col-9 col-sm-12")
+                        input(class="form-input" value=dateStart name="dateStart" type="date" id="input-example-1" placeholder="Name")
+                div(class="column col-6")
+                    div(class="form-group")
+                        label(class="form-label" for="input-example-1") Fecha hasta
+                    div(class="col-9 col-sm-12")
+                        input(class="form-input" value=dateEnd name="dateEnd" type="date" id="input-example-1" placeholder="Name")
+                div(class="column col-12")
+                    div(class="form-group")
+                        label(class="form-label" for="input-example-1") Category
+                    div(class="col-9 col-sm-12")
+                        select(name="selectedCategory")
+                            option(value='') Ninguna
+                            each cat, index in categories  
+                                option(value=cat._id)=cat.category  
+            div(class="col-9 col-sm-12",style="padding:10px;")
+                button(class="btn btn-success", type='submit' )  Buscar
+    div(class="results")
+            div(class="result seed_most_buyed")
+                H3 Semilla Más vendida
+                div(class="result_container")
+                 H2=mostSellerSeed.seed.name
+                 strong Categoria:
+                 div
+                    each cat,index in mostSellerSeed.categories
+                        p=cat.category
+                 strong cantidad en Kg: 
+                 p=mostSellerSeed.amount
+                 strong cantidad en USD: 
+                 p=mostSellerSeed.total
+            div(class="result table")
+                table(class="table table-striped table-hover")
+                    thead
+                        tr 
+                            th Semilla
+                            th Categoria
+                            th cantidad en Kg
+                            th cantidad en USD
+                    tbody
+                        each val, index in seeds
+                            tr(class="active")
+                                td= val.seed.name
+                                td
+                                  each cat, index in val.categories
+                                        p=cat.category
+                                td= val.amount
+                                td= val.total
+                            
 
 
     
-   
         

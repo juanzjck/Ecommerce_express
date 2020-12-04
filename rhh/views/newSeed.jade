@@ -19,10 +19,9 @@ block content
         div(class="form-group")
             label(class="form-label" for="input-example-1") Category
         div(class="col-9 col-sm-12")
-            select(class="form-select" multiple="" name="category")
-                        option='Slack'
-                        option='Skype'
-                        option='Hipchat'
+              select(class="form-select" multiple="" name="category")
+                    each val, index in categories
+                        option(value=val._id)=val.category
         div(class="col-9 col-sm-12",style="padding:10px;")
             button(class="btn btn-success", type='submit' )  Guardar
 

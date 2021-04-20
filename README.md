@@ -1,4 +1,4 @@
-<h1>A simple exomerce example</h1>
+<h1>A simple ecomerce example</h1>
 <p>This proyect is a simple example of ecomerce made with Node and express.js</P>
 
 <h2>To run</h2>

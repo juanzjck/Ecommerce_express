@@ -1,0 +1,20 @@
+extends layoutAdmin
+
+
+block content
+    if(orders)
+        table(class="table")
+            thead
+                tr
+                    th Order ID
+            each val, index in orders
+                tr
+                    td
+                       a(href="http://localhost:3000/edit_order/"+`${val._id}`)=val._id
+                
+
+
+
+                    
+            
+    

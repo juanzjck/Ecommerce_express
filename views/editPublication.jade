@@ -1,0 +1,87 @@
+extends layoutAdmin
+block content
+    h1= 'Editar publicacion'
+    a(href='http://localhost:3000/all_publication')='regresar'
+    form(action=urlDelete,method='post')
+        div(data-role='fieldcontain')   
+           input(type='submit',value='Eliminar',data-transition='fade', data-theme='c')
+    form(action=url,method='post', class="form-horizontal")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Titulo
+        div(class="col-9 col-sm-12")
+            input(class="form-input" value=titulo name="titulo" type="text" id="input-example-1" placeholder="Name")
+        div(class="form-group")
+            label(class="form-label"  for="input-example-1") Dscription
+        div(class="col-9 col-sm-12") 
+            input(class="form-input" value=description name="description" type="text" id="input-example-1" placeholder="price")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Space
+        div(class="col-9 col-sm-12")
+            input(class="form-input" value=space name="space" type="text" id="input-example-1" placeholder="Quantity")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Price
+        div(class="col-9 col-sm-12")
+            input(class="form-input" value=priceSpace name="priceSpace" type="text" id="input-example-1" placeholder="Quantity")
+        div(class="form-group")
+           table(class="table")
+                thead
+                    tr
+                     th Categoria
+                tbody
+                    each val, index in category
+                        tr
+                         td=val.category
+                            a(class="btn btn-primary", href=delete_category+val._id, method='POST') Eliminar
+            a( class="btn btn-primary" href="#add_category") Agregar categoria
+        div(class="col-9 col-sm-12")
+             
+           table(class="table")
+                thead
+                    tr
+                     th Semillas
+                tbody
+                    each val, index in seeds
+                        tr
+                         td=val.name
+                            a(class="btn btn-primary", href="http://localhost:3000/deleteSeed_publication/"+_id+"/"+val._id) Eliminar
+            a( class="btn btn-primary" href="#add_seed") Agregar semilla
+         div(class="form-group")
+            label(class="form-label" for="input-example-1") Ubicacion 
+        div(class="col-9 col-sm-12")
+           strong=location.ciudad+"  "+location.provincia+" "+location.pais
+           p Modificar ubicacion a:
+           select(name="location")
+                 each loc, index in locations
+                    option(value=loc._id)=loc.pais+"-"+loc.ciudad+"-"+loc.provincia
+        div(class="col-9 col-sm-12",style="padding:10px;")
+            button(class="btn btn-success", type='submit' )  Guardar
+    div(class="modal" id="add_category")
+        a(href="#close" class="modal-overlay" aria-label="Close")
+        div(class="modal-container")
+            div(class="modal-header")
+                a(href="#close" class="btn btn-clear float-right" aria-label="Close")
+                div(class="modal-title h5") Agregar category
+            div(class="modal-body")
+                div(class="content")
+                 form(action=urlAddCategory,method='post')
+                    select(name="category")
+                        each val, index in categories
+                            option(value=val._id)=val.category
+                    button(class="btn btn-primary") Agregar
+            div(class="modal-footer")
+    div(class="modal" id="add_seed")
+            a(href="#close" class="modal-overlay" aria-label="Close")
+            div(class="modal-container")
+                div(class="modal-header")
+                    a(href="#close" class="btn btn-clear float-right" aria-label="Close")
+                    div(class="modal-title h5") Agregar category
+                div(class="modal-body")
+                    div(class="content")
+                    form(action="http://localhost:3000/addSeed_publication/"+_id,method='post')
+                        select(name="seed")
+                            each val, index in allSeeds
+                                option(value=val._id)=val.name
+                        button(class="btn btn-primary") Agregar
+                div(class="modal-footer")
+
+      

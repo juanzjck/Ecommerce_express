@@ -1,0 +1,22 @@
+extends layoutAdmin
+
+block content
+    h1= 'Agregar ubicacion'
+    a(href='http://localhost:3000/all_locations')='regresar'
+    form(action="new_location",method='post', class="form-horizontal")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Pais
+        div(class="col-9 col-sm-12")
+            input(class="form-input" name="pais" type="text" id="input-example-1" placeholder="Name")
+        div(class="form-group")
+            label(class="form-label"  for="input-example-1") Ciudad
+        div(class="col-9 col-sm-12")
+            input(class="form-input" name="ciudad" type="text" id="input-example-1" placeholder="price")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Provincia
+        div(class="col-9 col-sm-12")
+            input(class="form-input" name="provincia" type="text" id="input-example-1" placeholder="Quantity")
+        div(class="col-9 col-sm-12",style="padding:10px;")
+            button(class="btn btn-success", type='submit' )  Guardar
+
+

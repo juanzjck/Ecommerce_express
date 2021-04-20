@@ -1,0 +1,27 @@
+extends layout
+
+
+block content
+    div(class="container grid-xl")
+        form(action="http://localhost:3000/checkOut/"+order._id,method="POST")   
+            h2="Checkout"
+            table(class="table")
+                thead
+                    tr
+                        th Publicacion
+                        th Espacio
+                        th Semmila
+                        th Subtotal 
+                tbody
+                    tr(class="active")
+                        td=publication.titulo
+                        td=order.space
+                        td=seed.name
+                        td=total
+                    tr  
+                        td
+                        td
+                        td Tota
+                        td=total
+            br
+            button(type="summit",class="btn btn-success") Pagar

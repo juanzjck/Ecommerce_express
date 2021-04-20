@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    div(class="container grid-xl")
+         form(action="http://localhost:3000/add_order/"+publication._id,method="POST")   
+            h2 Agregar Orden
+            table(class="table")
+                thead
+                    tr
+                        th Publicacion
+                        th Espacio
+                        th Precio por metro
+                        th Semmila     
+                tbody
+                    tr(class="active")
+                        td=publication.titulo
+                        td
+                            div
+                                p=publication.space+" m2"  
+                                input(class="form-input" value=publication.space name="space" type="text" id="input-example-1" placeholder="100") 
+                        td=publication.priceSpace
+                        td
+                            div
+                                select(class="form-select"   name="seed")
+                                    each val, index in seeds
+                                        option(value=val._id)=val.name
+                                    input(class="form-input"  name="seedAmount" type="text" id="input-example-1" placeholder="100") 
+                            
+            br
+            button(type="summit",class="btn btn-success") Continuar

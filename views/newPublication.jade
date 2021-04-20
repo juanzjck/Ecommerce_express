@@ -1,0 +1,47 @@
+extends layoutAdmin
+
+block content
+    h1= 'Agregar publicacion'
+    a(href='http://localhost:3000/all_publication')='regresar'
+    form(action="new_publication",method='post', class="form-horizontal")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Titulo
+        div(class="col-9 col-sm-12")
+            input(class="form-input" name="titulo" type="text" id="input-example-1" placeholder="Name")
+        div(class="form-group")
+            label(class="form-label"  for="input-example-1") Dscription
+        div(class="col-9 col-sm-12")
+            input(class="form-input" name="description" type="text" id="input-example-1" placeholder="price")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Space
+        div(class="col-9 col-sm-12")
+            input(class="form-input" name="space" type="text" id="input-example-1" placeholder="Quantity")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Price
+        div(class="col-9 col-sm-12")
+            input(class="form-input" name="priceSpace" type="text" id="input-example-1" placeholder="Quantity")
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Category
+        div(class="col-9 col-sm-12")
+            select(class="form-select" multiple="" name="category")
+                    each val, index in categories
+                        option(value=val._id)=val.category
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Semillas
+        div(class="col-9 col-sm-12")
+            select(class="form-select" multiple="" name="seed")
+                    each val, index in seeds
+                        option(value=val._id)=val.name
+        div(class="form-group")
+            label(class="form-label" for="input-example-1") Ubicacion
+        div(class="col-9 col-sm-12")
+            select(name="location")
+                each loc, index in locations
+                    option(value=loc._id)=loc.pais+"-"+loc.ciudad+"-"+loc.provincia
+        div(class="col-9 col-sm-12",style="padding:10px;")
+            button(class="btn btn-success", type='submit' )  Guardar
+
+
+
+
+      

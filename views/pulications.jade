@@ -1,0 +1,23 @@
+
+block content
+ div(class="section section-updates bg-gray")
+    div(class="text-center")
+     h3='TERRENOS'
+    div(class="container grid-lg")
+     div(class="productList_container columns")
+      each val, index in publications
+          div(class="column col-4 col-xs-12")
+              div(class="card")
+                div(class="card-image")
+                  img(class="img-responsive" src="./images/01-082.jpg" alt=val.titulo)
+                div(class="card-footer")
+                  a(class="btn btn-primary" href="http://localhost:3000/add_order/"+val._id)='Contratar'
+                    a(class="btn btn-primary" href="http://localhost:3000/score/"+val._id)='Me interesa +1 pts'
+                  p(class="price")="$"+val.priceSpace+" por m2"
+                div(class="card-body")
+                  strong Titulo
+                  p=val.titulo
+                  strong Descripción
+                  p=val.description
+                  strong Area
+                  p=val.space+" m2"

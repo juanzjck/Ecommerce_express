@@ -1,0 +1,24 @@
+extends layoutAdmin
+
+
+block content
+  a(href='http://localhost:3000/new_location')
+   button(class="btn btn-success")='Agreagr ubicacion'
+  if(locations)
+     table(class="table")
+      thead
+            tr
+             th Pais
+             th Provincia
+             th Ciudad
+              
+      each val, index in locations
+        tr
+         td
+           a(href='http://localhost:3000/edit_location/'+`${val._id}`)=val.pais
+         td
+           a(href='http://localhost:3000/edit_location/'+`${val._id}`)=val.provincia
+         td
+           a(href='http://localhost:3000/edit_location/'+`${val._id}`)=val.ciudad
+           
+        

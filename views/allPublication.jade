@@ -1,0 +1,31 @@
+extends layoutAdmin
+
+
+block content
+  a(href='http://localhost:3000/new_publication')
+   button(class="btn btn-success")='Crear publicacion'
+  if(publications)
+     table(class="table")
+      thead
+        tr
+          th Titulo
+          th Description
+          th Space
+          th PriceSpace
+      each val, index in publications
+        tr
+          td
+           a(href=`${domain}${val._id}`)=val.titulo
+          td
+           a(href=`${domain}${val._id}`)=val.description
+          td
+           a(href=`${domain}${val._id}`)=val.space
+          td
+           a(href=`${domain}${val._id}`)=val.priceSpace
+      
+
+
+
+                
+        
+ 
